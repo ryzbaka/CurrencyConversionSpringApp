@@ -22,7 +22,6 @@ public class ConvertController {
         String target = inputData.getTarget();
         double amount = inputData.getAmount();
 
-        // String uri = "http://api.exchangeratesapi.io/v1/latest?access_key=a5d43042d28e3dab6692d4e8efe59806&base=EUR";
         String uri = "http://api.exchangeratesapi.io/v1/latest?access_key="+key_name;
 		RestTemplate restTemplate = new RestTemplate();
 		String result = restTemplate.getForObject(uri,String.class);
