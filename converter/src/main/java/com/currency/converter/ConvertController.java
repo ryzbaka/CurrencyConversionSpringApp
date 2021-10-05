@@ -1,5 +1,7 @@
 package com.currency.converter;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,13 +13,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 public class ConvertController {
+    @Value("${key.name}")
+    private String key_name;
+
     @PostMapping("/convert")
     public ConvertedValue convert(@RequestBody ConvertData inputData){
         String source = inputData.getSource();
         String target = inputData.getTarget();
         double amount = inputData.getAmount();
 
-        String uri = "http://api.exchangeratesapi.io/v1/latest?access_key=a5d43042d28e3dab6692d4e8efe59806&base=EUR";
+        // String uri = "http://api.exchangeratesapi.io/v1/latest?access_key=a5d43042d28e3dab6692d4e8efe59806&base=EUR";
+        String uri = "http://api.exchangeratesapi.io/v1/latest?access_key="+key_name;
 		RestTemplate restTemplate = new RestTemplate();
 		String result = restTemplate.getForObject(uri,String.class);
 		ObjectMapper mapper = new ObjectMapper();
